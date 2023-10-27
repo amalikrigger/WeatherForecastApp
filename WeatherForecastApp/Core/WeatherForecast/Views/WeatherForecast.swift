@@ -9,16 +9,15 @@ import SwiftUI
 
 struct WeatherForecast: View {
   let screenWidth = UIScreen.main.bounds.size.width
+  let screenHeight = UIScreen.main.bounds.size.height
   var body: some View {
     ZStack {
-      // Background Image
       Image("weather_background")
         .resizable()
         .aspectRatio(contentMode: .fill)
         .edgesIgnoringSafeArea( /*@START_MENU_TOKEN@*/.all /*@END_MENU_TOKEN@*/)
         .blur(radius: 4)
 
-      // Semi-transparent or frosted layer
       Color.white.opacity(0.2)
         .edgesIgnoringSafeArea( /*@START_MENU_TOKEN@*/.all /*@END_MENU_TOKEN@*/)
 
@@ -35,7 +34,7 @@ struct WeatherForecast: View {
           .resizable()
           .aspectRatio(contentMode: .fit)
           .frame(width: 200, height: 200)
-        HStack {
+        HStack(spacing: 30) {
           VStack {
             Text(Image(systemName: "wind"))
             Text("7km/h")
@@ -45,7 +44,8 @@ struct WeatherForecast: View {
               .foregroundColor(.black)
           }
 
-          Text("21°F")
+          Text("21°")
+            .font(.system(size: 80))
 
           VStack {
             Text(Image(systemName: "drop"))
@@ -57,22 +57,30 @@ struct WeatherForecast: View {
               .foregroundColor(.black)
           }
         }
-
         Text("Pretty warm")
+          .font( /*@START_MENU_TOKEN@*/.title /*@END_MENU_TOKEN@*/)
+        Spacer().frame(height: 10)
         Text("From 18° To: 23°")
-
+        Spacer()
         HStack {
           Text("Today")
             .font( /*@START_MENU_TOKEN@*/.title /*@END_MENU_TOKEN@*/)
             .bold()
+            .padding(.leading, 30)
+          Spacer()
           HStack {
             Text("Next 7 Days")
               .font(.title3)
+
             Image(systemName: "chevron.right")
               .resizable()
               .frame(width: 5, height: 10)
           }
+          .padding(.trailing)
+
         }
+        .frame(width: screenWidth)
+
         HStack {
           Spacer().frame(width: 50)
           RoundedRectangle(cornerRadius: 20)
@@ -98,12 +106,12 @@ struct WeatherForecast: View {
                 .padding()
               }
               .cornerRadius(10)
-              .padding(.leading)
+              .padding(.horizontal)
             )
         }
 
       }
-
+      .padding(.vertical)
     }
   }
 }
