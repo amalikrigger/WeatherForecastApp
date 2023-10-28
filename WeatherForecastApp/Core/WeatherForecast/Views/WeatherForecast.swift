@@ -30,13 +30,15 @@ struct WeatherForecast: View {
         Text("Sunny with clouds")
           .font(.title2)
           .foregroundColor(.black)
+        Spacer()
         Image("cloudy_icon")
           .resizable()
-          .aspectRatio(contentMode: .fit)
-          .frame(width: 200, height: 200)
-        HStack(spacing: 30) {
+          .aspectRatio(contentMode: .fill)
+          .frame(width: 200, height: 100)
+        HStack(spacing: 20) {
           VStack {
             Text(Image(systemName: "wind"))
+              .font(.system(size: 22))
             Text("7km/h")
               .foregroundColor(.black)
               .bold()
@@ -44,11 +46,13 @@ struct WeatherForecast: View {
               .foregroundColor(.black)
           }
 
+          Spacer().frame(width: 20)
           Text("21°")
-            .font(.system(size: 80))
+            .font(.system(size: 90))
 
           VStack {
             Text(Image(systemName: "drop"))
+              .font(.system(size: 22))
 
             Text("36%")
               .foregroundColor(.black)
@@ -62,7 +66,7 @@ struct WeatherForecast: View {
         Spacer().frame(height: 10)
         Text("From 18° To: 23°")
         Spacer()
-        HStack {
+        HStack(alignment: .bottom) {
           Text("Today")
             .font( /*@START_MENU_TOKEN@*/.title /*@END_MENU_TOKEN@*/)
             .bold()
@@ -75,40 +79,18 @@ struct WeatherForecast: View {
             Image(systemName: "chevron.right")
               .resizable()
               .frame(width: 5, height: 10)
+              .padding(.top, 3)
+              .bold()
           }
           .padding(.trailing)
+          .onTapGesture {
+            print("Clicked")
+          }
 
         }
         .frame(width: screenWidth)
 
-        HStack {
-          Spacer().frame(width: 50)
-          RoundedRectangle(cornerRadius: 20)
-            .frame(width: screenWidth, height: 130)
-            .foregroundColor(Color(red: 149 / 255, green: 182 / 255, blue: 233 / 255).opacity(0.6))
-            .overlay(
-              ScrollView(.horizontal, showsIndicators: false) {
-                HStack(spacing: 40) {  // Adjust spacing as needed
-                  ForEach(1..<10) { index in
-                    VStack {
-                      Text("Now")
-                        .foregroundColor(.black)
-                        .bold()
-                      Image("cloudy_icon")
-                        .resizable()
-                        .aspectRatio(contentMode: .fit)
-                        .frame(width: 30, height: 30)
-                      Text("21°")
-                        .foregroundColor(.black)
-                    }
-                  }
-                }
-                .padding()
-              }
-              .cornerRadius(10)
-              .padding(.horizontal)
-            )
-        }
+        HourlyWeatherForecast()
 
       }
       .padding(.vertical)

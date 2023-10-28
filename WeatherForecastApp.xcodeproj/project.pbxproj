@@ -15,6 +15,7 @@
 		CA9AF6C32AEBFF9100FACA2A /* WeatherForecastAppTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA9AF6C22AEBFF9100FACA2A /* WeatherForecastAppTests.swift */; };
 		CA9AF6CD2AEBFF9100FACA2A /* WeatherForecastAppUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA9AF6CC2AEBFF9100FACA2A /* WeatherForecastAppUITests.swift */; };
 		CA9AF6CF2AEBFF9100FACA2A /* WeatherForecastAppUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA9AF6CE2AEBFF9100FACA2A /* WeatherForecastAppUITestsLaunchTests.swift */; };
+		CAFD04482AED4F2000D130EF /* HourlyWeatherForecast.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAFD04472AED4F2000D130EF /* HourlyWeatherForecast.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -46,6 +47,7 @@
 		CA9AF6C82AEBFF9100FACA2A /* WeatherForecastAppUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = WeatherForecastAppUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		CA9AF6CC2AEBFF9100FACA2A /* WeatherForecastAppUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherForecastAppUITests.swift; sourceTree = "<group>"; };
 		CA9AF6CE2AEBFF9100FACA2A /* WeatherForecastAppUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherForecastAppUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		CAFD04472AED4F2000D130EF /* HourlyWeatherForecast.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HourlyWeatherForecast.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -93,6 +95,7 @@
 			isa = PBXGroup;
 			children = (
 				CA4BD9222AEC356A003EAF06 /* WeatherForecast.swift */,
+				CAFD04472AED4F2000D130EF /* HourlyWeatherForecast.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -284,6 +287,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CAFD04482AED4F2000D130EF /* HourlyWeatherForecast.swift in Sources */,
 				CA4BD9232AEC356A003EAF06 /* WeatherForecast.swift in Sources */,
 				CA9AF6B42AEBFF9100FACA2A /* ContentView.swift in Sources */,
 				CA9AF6B22AEBFF9100FACA2A /* WeatherForecastAppApp.swift in Sources */,
