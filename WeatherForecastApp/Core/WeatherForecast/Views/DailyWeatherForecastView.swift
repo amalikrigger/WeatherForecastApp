@@ -10,6 +10,7 @@ import SwiftUI
 struct DailyWeatherForecastView: View {
   @Environment(\.presentationMode) var presentationMode
   @EnvironmentObject var currentWeatherViewModel: CurrentWeatherViewModel
+  @State var index = 0
   let screenWidth = UIScreen.main.bounds.size.width
   let screenHeight = UIScreen.main.bounds.size.height
 
@@ -27,38 +28,71 @@ struct DailyWeatherForecastView: View {
       ScrollView(.vertical, showsIndicators: false) {
         VStack {
           HStack {
-            Text("Tomorrow")
-              .font(.system(size: 40))
+            Text(
+              index == 0
+                ? "Tomorrow"
+                : currentWeatherViewModel.dailyWeatherData?[index]?.dailyTime ?? "Tomorrow"
+            )
+            .font(.system(size: 40))
+            .foregroundColor(.black)
             Spacer()
             HStack {
-              ElevatedIconButton(iconName: "arrow.left", opacity: 0.4)
-              ElevatedIconButton(iconName: "arrow.right", opacity: 0.9)
+              ElevatedIconButton(
+                iconName: "arrow.left", opacity: index == 0 ? 0.4 : 0.9,
+                onTapGesture: {
+                  if index != 0 {
+                    index -= 1
+                  }
+                })
+              ElevatedIconButton(
+                iconName: "arrow.right", opacity: index == 4 ? 0.4 : 0.9,
+                onTapGesture: {
+                  if index < 4 {
+                    index += 1
+                  }
+                })
             }
           }
           .padding(.horizontal)
           .padding(.top, 30)
           .frame(width: screenWidth)
-          Text("Rainy and windy")
-            .frame(width: screenWidth, alignment: .leading)
-            .padding(.leading, 40)
+          Text(
+            currentWeatherViewModel.dailyWeatherData?[index]?.weather.first?.main
+              ?? "Rainy and windy"
+          )
+          .foregroundColor(.black)
+          .frame(width: screenWidth, alignment: .leading)
+          .padding(.leading, 40)
           Spacer()
           HStack {
             VStack(alignment: .leading) {
-              Text("13°")
-                .font(.system(size: 90))
-              Text("Pretty warm")
-                .font( /*@START_MENU_TOKEN@*/.title /*@END_MENU_TOKEN@*/)
-              Spacer().frame(height: 10)
-              Text("From 18° To: 23°")
+              Spacer()
+              ScalableText(
+                alignment: .leading, height: 80, minSize: 80,
+                text: (currentWeatherViewModel.dailyWeatherData?[index]?.formattedTemp) ?? "130°",
+                widthFactor: 1)
+              Spacer()
+              ScalableText(
+                alignment: .leading, height: 35, minSize: 40,
+                text: currentWeatherViewModel.dailyWeatherData?[index]?.weather.first?.description
+                  .capitalized ?? "Pretty warm", widthFactor: 5)
+              Spacer()
+              ScalableText(
+                alignment: .leading, height: 20, minSize: 20,
+                text:
+                  "From \(currentWeatherViewModel.dailyWeatherData?[index]?.formattedTempMin ?? "180°") To: \(currentWeatherViewModel.dailyWeatherData?[index]?.formattedTempMax ?? "230°")",
+                widthFactor: 5)
             }
-            .padding(.leading, 23)
+            .padding(.leading, screenWidth * 0.06)
+            .frame(width: screenWidth * 0.4, height: 172)
             Spacer()
             VStack(spacing: 11) {
               Spacer()
               VStack {
                 Text(Image(systemName: "wind"))
                   .font(.system(size: 22))
-                Text("7km/h")
+                  .foregroundColor(.black)
+                Text((currentWeatherViewModel.dailyWeatherData?[index]?.formattedWind) ?? "7km/h")
                   .foregroundColor(.black)
                   .bold()
                 Text("Wind")
@@ -67,27 +101,29 @@ struct DailyWeatherForecastView: View {
               VStack {
                 Text(Image(systemName: "drop"))
                   .font(.system(size: 22))
-                Text("36%")
+                  .foregroundColor(.black)
+                Text((currentWeatherViewModel.dailyWeatherData?[index]?.formattedHumidity) ?? "36%")
                   .foregroundColor(.black)
                   .bold()
                 Text("Humidity")
                   .foregroundColor(.black)
               }
             }
-            .frame(height: 150)
+            .frame(width: screenWidth * 0.2, height: 140)
             Spacer()
-            WeatherIcon(width: 120, height: 50)
-              .padding(.trailing, 5)
+            WeatherIcon(width: screenWidth * 0.3, height: 50)
+              .padding(.trailing, 10)
           }
           .frame(width: screenWidth, height: 150)
           Spacer()
           FiveDayWeatherForecastView()
+            .padding(.bottom, 30)
         }
         .frame(height: screenHeight * 0.875)
       }
 
       .refreshable {
-        print("Refresh")
+        currentWeatherViewModel.getHardCodedLocation()
       }
 
     }

@@ -10,6 +10,7 @@ import SwiftUI
 struct ElevatedIconButton: View {
   let iconName: String
   let opacity: CGFloat
+  let onTapGesture: () -> Void
   var body: some View {
     RoundedRectangle(cornerRadius: 20)
       .frame(width: 50, height: 50)
@@ -20,12 +21,12 @@ struct ElevatedIconButton: View {
         Image(systemName: iconName)
           .foregroundColor(.white)
           .onTapGesture {
-            print("clicked")
+            onTapGesture()
           }
       )
   }
 }
 
 #Preview {
-  ElevatedIconButton(iconName: "arrow.left", opacity: 0.5)
+  ElevatedIconButton(iconName: "arrow.left", opacity: 0.5, onTapGesture: { print("Tapped") })
 }

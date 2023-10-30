@@ -35,7 +35,7 @@ class CurrentWeatherViewModel: ObservableObject {
       do {
         let result = try await networkManager.execute(
           networkRequest, modelType: CurrentWeatherData.self)
-        print(result ?? "FAILED")
+//        print(result ?? "FAILED")
         DispatchQueue.main.async {
           self.currentWeatherData = result
           self.dailyWeatherData = Array(result?.daily[1..<6] ?? [])
@@ -45,4 +45,33 @@ class CurrentWeatherViewModel: ObservableObject {
       }
     }
   }
+    
+    func getHardCodedLocation() {
+      Task {
+        guard let location = self.location else {
+          return
+        }
+        let networkRequest = NetworkRequest(
+          baseUrl: Constants.currentWeatherDataBaseURL, apiKey: Constants.apiKey,
+          path: "",
+          params: [
+            Constants.degreesType,
+            Constants.exclude,
+            URLQueryItem(name: "lat", value: "37.33233141"),
+            URLQueryItem(name: "lon", value: "122.0312186"),
+          ],
+          type: .GET, headers: [:])
+        do {
+          let result = try await networkManager.execute(
+            networkRequest, modelType: CurrentWeatherData.self)
+//          print(result ?? "FAILED")
+          DispatchQueue.main.async {
+            self.currentWeatherData = result
+            self.dailyWeatherData = Array(result?.daily[1..<6] ?? [])
+          }
+        } catch {
+          print(error.localizedDescription)
+        }
+      }
+    }
 }

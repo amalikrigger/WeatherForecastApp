@@ -26,7 +26,9 @@ struct CurrentWeatherView: View {
           VStack {
             Text(currentWeatherViewModel.currentWeatherData?.currentDateTime ?? "Tue, 17:34")
               .foregroundColor(.black)
-            ScalableText(text: currentWeatherViewModel.currentWeatherData?.timezone ?? "None")
+            ScalableText(
+              alignment: .center, height: 45, minSize: 40,
+              text: currentWeatherViewModel.currentWeatherData?.timezone ?? "None", widthFactor: 10)
             Text(
               currentWeatherViewModel.currentWeatherData?.current.weather.first?.main.capitalized
                 ?? "Sunny with clouds"
@@ -35,15 +37,17 @@ struct CurrentWeatherView: View {
             .foregroundColor(.black)
             Spacer()
             WeatherIcon(width: 200, height: 100)
-              Spacer()
+            Spacer()
             ZStack {
               Text(currentWeatherViewModel.currentWeatherData?.formattedTemp ?? "21°")
                 .padding(.leading, 25)
                 .font(.system(size: 80))
+                .foregroundColor(.black)
               HStack {
                 VStack {
                   Text(Image(systemName: "wind"))
                     .font(.system(size: 22))
+                    .foregroundColor(.black)
                   Text(currentWeatherViewModel.currentWeatherData?.formattedWind ?? "7km/h")
                     .foregroundColor(.black)
                     .bold()
@@ -54,6 +58,7 @@ struct CurrentWeatherView: View {
                 VStack {
                   Text(Image(systemName: "drop"))
                     .font(.system(size: 22))
+                    .foregroundColor(.black)
                   Text(currentWeatherViewModel.currentWeatherData?.formattedHumidity ?? "36%")
                     .foregroundColor(.black)
                     .bold()
@@ -70,26 +75,30 @@ struct CurrentWeatherView: View {
                 .capitalized ?? "Pretty warm"
             )
             .font( /*@START_MENU_TOKEN@*/.title /*@END_MENU_TOKEN@*/)
+            .foregroundColor(.black)
             Spacer().frame(height: 10)
             Text(
               "From \(currentWeatherViewModel.currentWeatherData?.formattedTempMin ?? "18°") To: \(currentWeatherViewModel.currentWeatherData?.formattedTempMax ?? "23°")"
             )
+            .foregroundColor(.black)
             Spacer()
             HStack(alignment: .bottom) {
               Text("Today")
                 .font( /*@START_MENU_TOKEN@*/.title /*@END_MENU_TOKEN@*/)
+                .foregroundColor(.black)
                 .bold()
                 .padding(.leading, 30)
               Spacer()
               HStack {
                 Text("Next 5 Days")
                   .font(.title3)
-
+                  .foregroundColor(.black)
                 Image(systemName: "chevron.right")
                   .resizable()
                   .frame(width: 5, height: 10)
                   .padding(.top, 3)
                   .bold()
+                  .foregroundColor(.black)
               }
               .padding(.trailing)
               .onTapGesture {
@@ -106,7 +115,7 @@ struct CurrentWeatherView: View {
           .frame(height: screenHeight * 0.875)
         }
         .refreshable {
-          currentWeatherViewModel.getCurrentWeatherData()
+          currentWeatherViewModel.getHardCodedLocation()
         }
       }
       .navigationDestination(

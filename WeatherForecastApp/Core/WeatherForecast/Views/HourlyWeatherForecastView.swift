@@ -19,17 +19,26 @@ struct HourlyWeatherForecastView: View {
         .overlay(
           ScrollView(.horizontal, showsIndicators: false) {
             HStack(spacing: 40) {
-                ForEach(0..<(currentWeatherViewModel.currentWeatherData?.hourly.count ?? 1), id: \.self) { index in
+              ForEach(
+                0..<(currentWeatherViewModel.currentWeatherData?.hourly.count ?? 1), id: \.self
+              ) { index in
                 VStack {
-                    Text((index == 0 ? "Now" : currentWeatherViewModel.currentWeatherData?.hourly[index].hourlyTime) ?? "Now")
-                    .foregroundColor(.black)
-                    .bold()
+                  Text(
+                    (index == 0
+                      ? "Now"
+                      : currentWeatherViewModel.currentWeatherData?.hourly[index].hourlyTime)
+                      ?? "Now"
+                  )
+                  .foregroundColor(.black)
+                  .bold()
                   Image("cloudy_icon")
                     .resizable()
                     .aspectRatio(contentMode: .fit)
                     .frame(width: 30, height: 30)
-                    Text(currentWeatherViewModel.currentWeatherData?.hourly[index].hourlyTemp ?? "21°")
-                    .foregroundColor(.black)
+                  Text(
+                    currentWeatherViewModel.currentWeatherData?.hourly[index].hourlyTemp ?? "21°"
+                  )
+                  .foregroundColor(.black)
                 }
               }
             }
@@ -45,5 +54,5 @@ struct HourlyWeatherForecastView: View {
 
 #Preview {
   HourlyWeatherForecastView()
-        .environmentObject(CurrentWeatherViewModel(networkManager: NetworkManager()))
+    .environmentObject(CurrentWeatherViewModel(networkManager: NetworkManager()))
 }
