@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct WeatherForecast: View {
+struct WeatherForecastView: View {
   @EnvironmentObject var coordinator: Coordinator
   @EnvironmentObject var weatherForecastViewModel: WeatherForecastViewModel
   let screenWidth = UIScreen.main.bounds.size.width
@@ -24,44 +24,49 @@ struct WeatherForecast: View {
           .edgesIgnoringSafeArea( /*@START_MENU_TOKEN@*/.all /*@END_MENU_TOKEN@*/)
         ScrollView(.vertical, showsIndicators: false) {
           VStack {
-            Text("Tue, 17:34")
+            Text(weatherForecastViewModel.weatherForecast?.currentDateTime ?? "Tue, 17:34")
               .foregroundColor(.black)
-            Text("Tokyo")
+            Text(weatherForecastViewModel.weatherForecast?.name ?? "None")
               .font(.system(size: 60))
               .foregroundColor(.black)
-            Text("Sunny with clouds")
+              Text(weatherForecastViewModel.weatherForecast?.weather.first?.description.capitalized ?? "Sunny with clouds")
               .font(.title2)
               .foregroundColor(.black)
             Spacer()
             WeatherIcon(width: 200, height: 100)
-            HStack(spacing: 20) {
-              VStack {
-                Text(Image(systemName: "wind"))
-                  .font(.system(size: 22))
-                Text("7km/h")
-                  .foregroundColor(.black)
-                  .bold()
-                Text("Wind")
-                  .foregroundColor(.black)
+              ZStack {
+                  Text(weatherForecastViewModel.weatherForecast?.formattedTemp ?? "21°")
+                      .padding(.leading, 25)
+                  .font(.system(size: 80))
+                  HStack {
+                    VStack {
+                      Text(Image(systemName: "wind"))
+                        .font(.system(size: 22))
+                        Text(weatherForecastViewModel.weatherForecast?.formattedWind ?? "7km/h")
+                        .foregroundColor(.black)
+                        .bold()
+                      Text("Wind")
+                        .foregroundColor(.black)
+                    }
+                      Spacer()
+                    VStack {
+                      Text(Image(systemName: "drop"))
+                        .font(.system(size: 22))
+                        Text(weatherForecastViewModel.weatherForecast?.formattedHumidity ?? "36%")
+                        .foregroundColor(.black)
+                        .bold()
+                      Text("Humidity")
+                        .foregroundColor(.black)
+                    }
+                  }
+                  .padding(.horizontal, 30)
+                  .frame(width: screenWidth)
               }
-              Text("21°")
-                .font(.system(size: 90))
-                .padding(.leading, 40)
-              VStack {
-                Text(Image(systemName: "drop"))
-                  .font(.system(size: 22))
-                Text("36%")
-                  .foregroundColor(.black)
-                  .bold()
-                Text("Humidity")
-                  .foregroundColor(.black)
-              }
-            }
-            .frame(width: screenWidth)
-            Text("Pretty warm")
+
+              Text(weatherForecastViewModel.weatherForecast?.weather.first?.main ?? "Pretty warm")
               .font( /*@START_MENU_TOKEN@*/.title /*@END_MENU_TOKEN@*/)
             Spacer().frame(height: 10)
-            Text("From 18° To: 23°")
+            Text("From \(weatherForecastViewModel.weatherForecast?.formattedTempMin ?? "18°") To: \(weatherForecastViewModel.weatherForecast?.formattedTempMax ?? "23°")")
             Spacer()
             HStack(alignment: .bottom) {
               Text("Today")
@@ -70,7 +75,7 @@ struct WeatherForecast: View {
                 .padding(.leading, 30)
               Spacer()
               HStack {
-                Text("Next 7 Days")
+                Text("Next 5 Days")
                   .font(.title3)
 
                 Image(systemName: "chevron.right")
@@ -87,14 +92,14 @@ struct WeatherForecast: View {
             }
             .frame(width: screenWidth)
 
-            HourlyWeatherForecast()
+            HourlyWeatherForecastView()
 
           }
           .padding(.vertical)
           .frame(height: screenHeight * 0.875)
         }
         .refreshable {
-          print("Refresh")
+            weatherForecastViewModel.getWeatherForecast()
         }
       }
       .navigationDestination(
@@ -102,7 +107,7 @@ struct WeatherForecast: View {
         destination: { page in
           switch page {
           case .dailyWeatherForecast:
-            DailyWeatherForecast()
+            DailyWeatherForecastView()
           }
         }
       ).navigationBarBackButtonHidden(true)
@@ -111,11 +116,14 @@ struct WeatherForecast: View {
       if let location = location {
         weatherForecastViewModel.location = location
         print("DEBUG: \(String(describing: weatherForecastViewModel.location))")
+        weatherForecastViewModel.getWeatherForecast()
       }
     }
   }
 }
 
 #Preview {
-  WeatherForecast().environmentObject(Coordinator())
+  WeatherForecastView()
+    .environmentObject(Coordinator())
+    .environmentObject(WeatherForecastViewModel(networkManager: NetworkManager()))
 }

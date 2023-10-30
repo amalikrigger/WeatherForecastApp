@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct FiveDayWeatherForecast: View {
+struct FiveDayWeatherForecastView: View {
   let screenWidth = UIScreen.main.bounds.size.width
   let screenHeight = UIScreen.main.bounds.size.height
   var body: some View {
@@ -44,5 +44,5 @@ struct FiveDayWeatherForecast: View {
 }
 
 #Preview {
-  FiveDayWeatherForecast()
+  FiveDayWeatherForecastView()
 }

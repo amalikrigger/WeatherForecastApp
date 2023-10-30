@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct DailyWeatherForecast: View {
+struct DailyWeatherForecastView: View {
   @Environment(\.presentationMode) var presentationMode
   let screenWidth = UIScreen.main.bounds.size.width
   let screenHeight = UIScreen.main.bounds.size.height
@@ -80,7 +80,7 @@ struct DailyWeatherForecast: View {
           }
           .frame(width: screenWidth, height: 150)
           Spacer()
-          FiveDayWeatherForecast()
+          FiveDayWeatherForecastView()
         }
         .frame(height: screenHeight * 0.875)
       }
@@ -112,5 +112,5 @@ struct DailyWeatherForecast: View {
 }
 
 #Preview {
-  DailyWeatherForecast()
+  DailyWeatherForecastView()
 }

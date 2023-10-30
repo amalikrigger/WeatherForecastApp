@@ -11,9 +11,9 @@ import SwiftUI
 struct WeatherForecastAppApp: App {
   var body: some Scene {
     WindowGroup {
-      WeatherForecast()
+      WeatherForecastView()
         .environmentObject(Coordinator())
-        .environmentObject(WeatherForecastViewModel())
+        .environmentObject(WeatherForecastViewModel(networkManager: NetworkManager()))
     }
   }
 }

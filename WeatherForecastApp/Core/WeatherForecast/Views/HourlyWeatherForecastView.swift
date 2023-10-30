@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct HourlyWeatherForecast: View {
+struct HourlyWeatherForecastView: View {
   let screenWidth = UIScreen.main.bounds.size.width
   var body: some View {
     HStack {
@@ -43,5 +43,5 @@ struct HourlyWeatherForecast: View {
 }
 
 #Preview {
-  HourlyWeatherForecast()
+  HourlyWeatherForecastView()
 }
