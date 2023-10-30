@@ -111,7 +111,7 @@ struct CurrentWeatherView: View {
             HourlyWeatherForecastView()
 
           }
-          .padding(.vertical)
+          .padding(.top)
           .frame(height: screenHeight * 0.875)
         }
         .refreshable {
