@@ -9,9 +9,11 @@ import SwiftUI
 
 @main
 struct WeatherForecastAppApp: App {
-    var body: some Scene {
-        WindowGroup {
-            WeatherForecast()
-        }
+  var body: some Scene {
+    WindowGroup {
+      WeatherForecast()
+        .environmentObject(Coordinator())
+        .environmentObject(WeatherForecastViewModel())
     }
+  }
 }
