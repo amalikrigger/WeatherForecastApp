@@ -8,7 +8,8 @@
 import Foundation
 
 struct Constants {
-  static let baseURL = "https://api.openweathermap.org/data/2.5/weather"
-  static let apiKey = URLQueryItem(name: "appid", value: "ff902a941caba2efc75c211425bd10fe")
+  static let currentWeatherDataBaseURL = "https://api.openweathermap.org/data/2.5/onecall"
+  static let apiKey = URLQueryItem(name: "appid", value: "fad7be6d3efab6853151833dfe5b49c2")
   static let degreesType = URLQueryItem(name: "units", value: "imperial")
+  static let exclude = URLQueryItem(name: "exclude", value: "alerts,minutely")
 }

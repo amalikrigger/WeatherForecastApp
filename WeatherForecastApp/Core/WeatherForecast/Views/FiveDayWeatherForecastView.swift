@@ -10,15 +10,16 @@ import SwiftUI
 struct FiveDayWeatherForecastView: View {
   let screenWidth = UIScreen.main.bounds.size.width
   let screenHeight = UIScreen.main.bounds.size.height
+  @EnvironmentObject var currentWeatherViewModel: CurrentWeatherViewModel
   var body: some View {
     RoundedRectangle(cornerRadius: 20)
       .frame(width: screenWidth * 0.9, height: screenHeight * 0.4)
       .foregroundColor(Color(red: 142 / 255, green: 168 / 255, blue: 204 / 255).opacity(0.6))
       .overlay(
         VStack(spacing: 25) {
-          ForEach(1..<6) { index in
+            ForEach(0..<(currentWeatherViewModel.dailyWeatherData?.count ?? 0) , id: \.self) { index in
             HStack {
-              Text("Wed")
+                Text(currentWeatherViewModel.dailyWeatherData?[index]?.dailyTime ?? "Wed")
                 .foregroundColor(.black)
                 .bold()
               Spacer()
@@ -28,12 +29,11 @@ struct FiveDayWeatherForecastView: View {
                 .frame(width: 40, height: 40)
               Spacer()
 
-              Text("Rainy")
+                Text(currentWeatherViewModel.dailyWeatherData?[index]?.weather.first?.main ?? "Rainy")
                 .foregroundColor(.black)
               Spacer()
-
-              Text("09°/13°")
-                .foregroundColor(.black)
+                Text(currentWeatherViewModel.dailyWeatherData?[index]?.formattedTempMinMax ?? "09°/13°")
+                  .foregroundColor(.black)
             }
           }
         }
@@ -45,4 +45,5 @@ struct FiveDayWeatherForecastView: View {
 
 #Preview {
   FiveDayWeatherForecastView()
+        .environmentObject(CurrentWeatherViewModel(networkManager: NetworkManager()))
 }

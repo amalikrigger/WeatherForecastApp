@@ -9,6 +9,7 @@ import SwiftUI
 
 struct DailyWeatherForecastView: View {
   @Environment(\.presentationMode) var presentationMode
+  @EnvironmentObject var currentWeatherViewModel: CurrentWeatherViewModel
   let screenWidth = UIScreen.main.bounds.size.width
   let screenHeight = UIScreen.main.bounds.size.height
 
@@ -113,4 +114,5 @@ struct DailyWeatherForecastView: View {
 
 #Preview {
   DailyWeatherForecastView()
+    .environmentObject(CurrentWeatherViewModel(networkManager: NetworkManager()))
 }

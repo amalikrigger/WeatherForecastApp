@@ -24,5 +24,21 @@ extension Date {
         dateFormatter.locale = Locale(identifier: "en_US")
         return dateFormatter.string(from: self)
     }
+    
+    func formattedTime() -> String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "HH:mm"
+        dateFormatter.timeZone = TimeZone.current // Use the current time zone
+
+        return dateFormatter.string(from: self)
+    }
+    
+    func abbreviatedWeekday() -> String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "E"
+        dateFormatter.timeZone = TimeZone.current // Use the current time zone
+
+        return dateFormatter.string(from: self)
+    }
 }
 

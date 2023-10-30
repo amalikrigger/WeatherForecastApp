@@ -9,6 +9,7 @@ import SwiftUI
 
 struct HourlyWeatherForecastView: View {
   let screenWidth = UIScreen.main.bounds.size.width
+  @EnvironmentObject var currentWeatherViewModel: CurrentWeatherViewModel
   var body: some View {
     HStack {
       Spacer().frame(width: 50)
@@ -18,16 +19,16 @@ struct HourlyWeatherForecastView: View {
         .overlay(
           ScrollView(.horizontal, showsIndicators: false) {
             HStack(spacing: 40) {
-              ForEach(1..<10) { index in
+                ForEach(0..<(currentWeatherViewModel.currentWeatherData?.hourly.count ?? 1), id: \.self) { index in
                 VStack {
-                  Text("Now")
+                    Text((index == 0 ? "Now" : currentWeatherViewModel.currentWeatherData?.hourly[index].hourlyTime) ?? "Now")
                     .foregroundColor(.black)
                     .bold()
                   Image("cloudy_icon")
                     .resizable()
                     .aspectRatio(contentMode: .fit)
                     .frame(width: 30, height: 30)
-                  Text("21°")
+                    Text(currentWeatherViewModel.currentWeatherData?.hourly[index].hourlyTemp ?? "21°")
                     .foregroundColor(.black)
                 }
               }
@@ -44,4 +45,5 @@ struct HourlyWeatherForecastView: View {
 
 #Preview {
   HourlyWeatherForecastView()
+        .environmentObject(CurrentWeatherViewModel(networkManager: NetworkManager()))
 }
