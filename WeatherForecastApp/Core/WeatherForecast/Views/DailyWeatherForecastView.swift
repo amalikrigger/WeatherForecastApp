@@ -53,7 +53,8 @@ struct DailyWeatherForecastView: View {
                 })
             }
           }
-          .padding(.horizontal)
+          .padding(.leading, 20)
+          .padding(.trailing)
           .padding(.top, 30)
           .frame(width: screenWidth)
           Text(
@@ -62,7 +63,7 @@ struct DailyWeatherForecastView: View {
           )
           .foregroundColor(.black)
           .frame(width: screenWidth, alignment: .leading)
-          .padding(.leading, 40)
+          .padding(.leading, 45)
           Spacer()
           HStack {
             VStack(alignment: .leading) {
