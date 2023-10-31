@@ -31,10 +31,11 @@ struct HourlyWeatherForecastView: View {
                   )
                   .foregroundColor(.black)
                   .bold()
-                  Image("cloudy_icon")
-                    .resizable()
-                    .aspectRatio(contentMode: .fit)
-                    .frame(width: 30, height: 30)
+                    Image(systemName: Constants.getWeatherIconString(icon: currentWeatherViewModel.currentWeatherData?.hourly[index].weather.first?.icon ?? "50d") ?? "sun.max.fill")
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
+                        .frame(width: 30, height: 30)
+                        .foregroundColor(.black)
                   Text(
                     currentWeatherViewModel.currentWeatherData?.hourly[index].hourlyTemp ?? "21°"
                   )

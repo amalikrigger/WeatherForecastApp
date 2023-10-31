@@ -22,21 +22,26 @@ protocol Networkable {
 
 struct NetworkManager: Networkable {
   func execute<T>(_ request: Requestable, modelType: T.Type) async throws -> T? where T: Decodable {
-    let urlRequest = try request.getURLRequest()
-    let (data, _) = try await URLSession.shared.data(for: urlRequest)
-    let decoder = JSONDecoder()
-    decoder.keyDecodingStrategy = .convertFromSnakeCase
-    return try decoder.decode(modelType.self, from: data)
+      do {
+          let urlRequest = try request.getURLRequest()
+          let (data, _) = try await URLSession.shared.data(for: urlRequest)
+          let decoder = JSONDecoder()
+          decoder.keyDecodingStrategy = .convertFromSnakeCase
+          return try decoder.decode(modelType.self, from: data)
+      } catch {
+          print(error.localizedDescription)
+          throw NetworkError.incorrectURL
+      }
   }
 }
 
 protocol Requestable {
   var baseUrl: String { get set }
-  var apiKey: URLQueryItem { get set }
-  var path: String { get set }
+  var apiKey: URLQueryItem? { get set }
+  var path: String? { get set }
   var type: RequestType { get set }
-  var params: [URLQueryItem] { get set }
-  var headers: [String: String] { get set }
+  var params: [URLQueryItem]? { get set }
+  var headers: [String: String]? { get set }
 }
 
 extension Requestable {
@@ -62,10 +67,10 @@ extension Requestable {
 
 extension Requestable {
   func getURLRequest() throws -> URLRequest {
-    guard var url = URL(string: baseUrl.appending(path)) else {
+    guard var url = URL(string: baseUrl.appending(path ?? "")) else {
       throw NetworkError.incorrectURL
     }
-    url.append(queryItems: [apiKey] + params)
+      url.append(queryItems: [apiKey ?? URLQueryItem(name: "", value: nil)] + (params ?? []))
     var urlRequest = URLRequest(url: url)
     urlRequest.httpMethod = type.rawValue
     return urlRequest

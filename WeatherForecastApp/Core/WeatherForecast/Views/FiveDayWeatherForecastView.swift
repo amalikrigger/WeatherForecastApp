@@ -20,21 +20,22 @@ struct FiveDayWeatherForecastView: View {
           ForEach(0..<(currentWeatherViewModel.dailyWeatherData?.count ?? 0), id: \.self) { index in
             GeometryReader { geometry in
               HStack(alignment: .center) {
+                Spacer()
                 Text(currentWeatherViewModel.dailyWeatherData?[index]?.dailyTime ?? "Wed")
                   .foregroundColor(.black)
                   .bold()
                   .frame(width: geometry.size.width * 0.2, alignment: .leading)
                 Spacer()
-                Image("cloudy_icon")
-                  .resizable()
-                  .aspectRatio(contentMode: .fit)
-                  .frame(width: geometry.size.width * 0.15, height: 40)
+                  Image(systemName: Constants.getWeatherIconString(icon: currentWeatherViewModel.dailyWeatherData?[index]?.weather.first?.icon ?? "50d") ?? "sun.max.fill")
+                      .resizable()
+                      .aspectRatio(contentMode: .fit)
+                      .frame(width: geometry.size.width * 0.1, height: 40)
                 Spacer()
                 Text(
                   currentWeatherViewModel.dailyWeatherData?[index]?.weather.first?.main ?? "Rainy"
                 )
                 .foregroundColor(.black)
-                .frame(width: geometry.size.width * 0.35, alignment: .center)
+                .frame(width: geometry.size.width * 0.4, alignment: .center)
                 Spacer()
                 ScalableText(
                   alignment: .leading, height: 20, minSize: 20,

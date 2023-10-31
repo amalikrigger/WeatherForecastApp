@@ -8,11 +8,18 @@
 import CoreLocation
 import Foundation
 
+enum ViewState {
+    case loading
+    case loaded
+    case error
+}
+
 class CurrentWeatherViewModel: ObservableObject {
   var location: CLLocationCoordinate2D?
   let networkManager: Networkable
-  @Published var currentWeatherData: CurrentWeatherData?
-  @Published var dailyWeatherData: [DailyWeather?]?
+  @Published private(set) var currentWeatherData: CurrentWeatherData?
+  @Published private(set) var dailyWeatherData: [DailyWeather?]?
+  @Published private(set) var state = ViewState.loading
   init(networkManager: Networkable) {
     self.networkManager = networkManager
   }
@@ -20,6 +27,10 @@ class CurrentWeatherViewModel: ObservableObject {
   func getCurrentWeatherData() {
     Task {
       guard let location = self.location else {
+          DispatchQueue.main.async {
+              self.state = .error
+          }
+       
         return
       }
       let networkRequest = NetworkRequest(
@@ -35,22 +46,24 @@ class CurrentWeatherViewModel: ObservableObject {
       do {
         let result = try await networkManager.execute(
           networkRequest, modelType: CurrentWeatherData.self)
-//        print(result ?? "FAILED")
+        print(result ?? "FAILED")
         DispatchQueue.main.async {
           self.currentWeatherData = result
           self.dailyWeatherData = Array(result?.daily[1..<6] ?? [])
+          self.state = .loaded
         }
       } catch {
-        print(error.localizedDescription)
+          DispatchQueue.main.async {
+              self.state = .error
+              print(error.localizedDescription)
+          }
+
       }
     }
   }
     
     func getHardCodedLocation() {
       Task {
-        guard let location = self.location else {
-          return
-        }
         let networkRequest = NetworkRequest(
           baseUrl: Constants.currentWeatherDataBaseURL, apiKey: Constants.apiKey,
           path: "",
@@ -68,9 +81,13 @@ class CurrentWeatherViewModel: ObservableObject {
           DispatchQueue.main.async {
             self.currentWeatherData = result
             self.dailyWeatherData = Array(result?.daily[1..<6] ?? [])
+            self.state = .loaded
           }
         } catch {
-          print(error.localizedDescription)
+            DispatchQueue.main.async {
+                self.state = .error
+                print(error.localizedDescription)
+            }
         }
       }
     }

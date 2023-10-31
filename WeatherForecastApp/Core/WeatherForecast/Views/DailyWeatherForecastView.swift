@@ -65,7 +65,7 @@ struct DailyWeatherForecastView: View {
           .frame(width: screenWidth, alignment: .leading)
           .padding(.leading, 45)
           Spacer()
-          HStack {
+            HStack {
             VStack(alignment: .leading) {
               Spacer()
               ScalableText(
@@ -110,12 +110,14 @@ struct DailyWeatherForecastView: View {
                   .foregroundColor(.black)
               }
             }
-            .frame(width: screenWidth * 0.2, height: 140)
+            .frame(width: screenWidth * 0.3, height: 140)
             Spacer()
-            WeatherIcon(width: screenWidth * 0.3, height: 50)
-              .padding(.trailing, 10)
+              Image(systemName: Constants.getWeatherIconString(icon: currentWeatherViewModel.dailyWeatherData?[index]?.weather.first?.icon ?? "50d") ?? "sun.max.fill")
+                  .resizable()
+                  .frame(width: screenWidth * 0.2, height: screenWidth * 0.2)
+                  .padding(.trailing)
           }
-          .frame(width: screenWidth, height: 150)
+          .frame(width: screenWidth, height: 200)
           Spacer()
           FiveDayWeatherForecastView()
             .padding(.bottom, 30)
@@ -135,13 +137,13 @@ struct DailyWeatherForecastView: View {
       }) {
         Image(systemName: "chevron.left")
           .bold()
-          .foregroundColor(.white)
+          .foregroundColor(.black)
       },
       trailing: Button(action: {
         // Handle additional actions on the right
       }) {
         Image(systemName: "ellipsis")
-          .foregroundColor(.white)
+          .foregroundColor(.black)
       }
     )
     .navigationBarTitle("Next 5 Days", displayMode: .inline)

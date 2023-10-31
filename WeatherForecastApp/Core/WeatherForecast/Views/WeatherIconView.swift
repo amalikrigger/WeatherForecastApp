@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct WeatherIcon: View {
+struct WeatherIconView: View {
 
   let width: CGFloat
   let height: CGFloat
@@ -21,5 +21,5 @@ struct WeatherIcon: View {
 }
 
 #Preview {
-  WeatherIcon(width: 200, height: 100)
+  WeatherIconView(width: 200, height: 100)
 }
