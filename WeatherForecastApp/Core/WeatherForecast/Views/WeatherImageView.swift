@@ -13,8 +13,9 @@ struct WeatherImageView: View {
     let width: Double?
     var body: some View {
         ImageView(urlString: Constants.getWeatherIcon(icon: icon))
-            .frame(width: width ?? 200, height: height ?? 200)
+        .frame(width: width ?? 200, height: height ?? 200)
     }
+
 }
 
 #Preview {

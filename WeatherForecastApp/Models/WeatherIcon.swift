@@ -4,7 +4,9 @@
 //
 //  Created by Amali Krigger on 10/31/23.
 //
+
 import Foundation
+
 enum WeatherIcon: String {
     case clearSkyDay = "01d"
     case clearSkyNight = "01n"

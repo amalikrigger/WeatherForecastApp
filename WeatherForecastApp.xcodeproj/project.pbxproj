@@ -32,6 +32,7 @@
 		CAE084432AEF4B3300E919F2 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAE084422AEF4B3300E919F2 /* Constants.swift */; };
 		CAE084492AEF502A00E919F2 /* CurrentWeatherData.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAE084482AEF502A00E919F2 /* CurrentWeatherData.swift */; };
 		CAE0844E2AEF5F8200E919F2 /* Date+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAE0844D2AEF5F8200E919F2 /* Date+Extensions.swift */; };
+		CAFCE2152AF23BD000904E19 /* MockNetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAFCE2142AF23BD000904E19 /* MockNetworkManager.swift */; };
 		CAFD04482AED4F2000D130EF /* HourlyWeatherForecastView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAFD04472AED4F2000D130EF /* HourlyWeatherForecastView.swift */; };
 /* End PBXBuildFile section */
 
@@ -81,6 +82,7 @@
 		CAE084422AEF4B3300E919F2 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		CAE084482AEF502A00E919F2 /* CurrentWeatherData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrentWeatherData.swift; sourceTree = "<group>"; };
 		CAE0844D2AEF5F8200E919F2 /* Date+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Extensions.swift"; sourceTree = "<group>"; };
+		CAFCE2142AF23BD000904E19 /* MockNetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockNetworkManager.swift; sourceTree = "<group>"; };
 		CAFD04472AED4F2000D130EF /* HourlyWeatherForecastView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HourlyWeatherForecastView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -215,6 +217,7 @@
 			isa = PBXGroup;
 			children = (
 				CA9AF6C22AEBFF9100FACA2A /* WeatherForecastAppTests.swift */,
+				CAFCE2142AF23BD000904E19 /* MockNetworkManager.swift */,
 			);
 			path = WeatherForecastAppTests;
 			sourceTree = "<group>";
@@ -446,6 +449,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CAFCE2152AF23BD000904E19 /* MockNetworkManager.swift in Sources */,
 				CA9AF6C32AEBFF9100FACA2A /* WeatherForecastAppTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

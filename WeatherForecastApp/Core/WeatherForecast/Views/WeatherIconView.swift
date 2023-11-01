@@ -8,18 +8,17 @@
 import SwiftUI
 
 struct WeatherIconView: View {
+    let width: CGFloat
+    let height: CGFloat
+    var body: some View {
+        Image("cloudy_icon")
+        .resizable()
+        .aspectRatio(contentMode: .fill)
+        .frame(width: width, height: height)
+    }
 
-  let width: CGFloat
-  let height: CGFloat
-
-  var body: some View {
-    Image("cloudy_icon")
-      .resizable()
-      .aspectRatio(contentMode: .fill)
-      .frame(width: width, height: height)
-  }
 }
 
 #Preview {
-  WeatherIconView(width: 200, height: 100)
+    WeatherIconView(width: 200, height: 100)
 }

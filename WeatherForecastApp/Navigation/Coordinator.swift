@@ -9,13 +9,12 @@ import Foundation
 import SwiftUI
 
 enum Page: Hashable {
-  case dailyWeatherForecast
+    case dailyWeatherForecast
 }
-
 class Coordinator: ObservableObject {
-  @Published var path = NavigationPath()
+    @Published var path = NavigationPath()
+    func showDailyWeatherForecast() {
+        path.append(Page.dailyWeatherForecast)
+    }
 
-  func showDailyWeatherForecast() {
-    path.append(Page.dailyWeatherForecast)
-  }
 }

@@ -11,10 +11,8 @@ protocol ImageCacheHelper {
     func getImage(url: String) -> UIImage?
     func setImage(image: UIImage?, url: String)
 }
-
 class ImageCache: ImageCacheHelper {
     private let cache = NSCache<NSString, UIImage>()
-
     func getImage(url: String) -> UIImage? {
         return cache.object(forKey: url as NSString)
     }
