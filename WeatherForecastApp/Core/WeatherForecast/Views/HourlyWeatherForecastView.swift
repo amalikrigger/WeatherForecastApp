@@ -18,7 +18,7 @@ struct HourlyWeatherForecastView: View {
         .foregroundColor(Color(red: 149 / 255, green: 182 / 255, blue: 233 / 255).opacity(0.6))
         .overlay(
           ScrollView(.horizontal, showsIndicators: false) {
-            HStack(spacing: 40) {
+            LazyHStack(spacing: 40) {
               ForEach(
                 0..<(weatherForecastViewModel.weatherForecastData?.hourly.count ?? 1), id: \.self
               ) {

@@ -41,7 +41,8 @@ struct SearchWeatherForecastView: View {
           .padding(.horizontal)
 
         if searchWeatherForecastViewModel.state == .error {
-          Text("Not a valid city").padding()
+          Text("Not a valid city")
+                .padding()
         }
 
         Spacer()
