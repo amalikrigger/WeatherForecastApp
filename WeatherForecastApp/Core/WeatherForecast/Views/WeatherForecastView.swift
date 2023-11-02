@@ -162,6 +162,7 @@ struct WeatherForecastView: View {
       .navigationBarTitle(
         Text(weatherForecastViewModel.weatherForecastData?.currentDateTime ?? "Tue, 17:34"),
         displayMode: .inline)
+      .foregroundColor(.black)
     }
     .onReceive(LocationManager.shared.$location) {
       location in
