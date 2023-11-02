@@ -8,18 +8,18 @@
 import SwiftUI
 
 struct ImageView: View {
-    @ObservedObject private var imageViewModel: ImageViewModel
-    init(urlString: String?) {
-        imageViewModel = ImageViewModel(urlString: urlString, imageCache: ImageCache())
-    }
+  @ObservedObject private var imageViewModel: ImageViewModel
+  init(urlString: String?) {
+    imageViewModel = ImageViewModel(urlString: urlString, imageCache: ImageCache())
+  }
 
-    var body: some View {
-        Image(uiImage: imageViewModel.image ?? UIImage())
-        .resizable()
-    }
+  var body: some View {
+    Image(uiImage: imageViewModel.image ?? UIImage())
+      .resizable()
+  }
 
 }
 
 #Preview {
-    ImageView(urlString: "")
+  ImageView(urlString: "")
 }
