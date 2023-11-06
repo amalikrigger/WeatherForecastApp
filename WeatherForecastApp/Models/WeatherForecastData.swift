@@ -138,7 +138,7 @@ extension DailyWeather {
   }
 
   var formattedTempMinMax: String? {
-    return "\(String(format: "%.0f", temp.min))°/\(String(format: "%.0f", temp.min))°"
+      return "\(String(format: "%.0f", temp.min))°/\(String(format: "%.0f", temp.max))°"
   }
 
   var formattedWind: String? {
