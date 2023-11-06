@@ -127,7 +127,8 @@ struct WeatherForecastView: View {
           }
           .refreshable {
             Task {
-              try? await weatherForecastViewModel.getHardCodedWeatherLocation()
+              try? await weatherForecastViewModel.getWeatherForecastData()
+//              try? await weatherForecastViewModel.getHardCodedWeatherLocation()
             }
           }
         }

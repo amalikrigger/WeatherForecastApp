@@ -56,7 +56,7 @@ class WeatherForecastViewModel: ObservableObject {
     )
     do {
       let result = try await networkManager.execute(networkRequest, modelType: WeatherForecastData.self)
-      //                print(result)
+      print(result)
       handleSuccess(result)
     } catch {
       handleError(error)
